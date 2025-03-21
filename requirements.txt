@@ -1,0 +1,5 @@
+python-telegram-bot
+paramiko
+pytz
+apscheduler
+nest_asyncio
