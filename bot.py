@@ -13,33 +13,7 @@ import pytz
 from ftplib import FTP, error_perm
 from apscheduler.schedulers.asyncio import AsyncIOScheduler
 
-# Патчим AsyncIOScheduler, чтобы всегда использовалась pytz.utc для временной зоны
-_original_configure = AsyncIOScheduler._configure
-def patched_configure(self, config):
-    if 'timezone' in config and not isinstance(config['timezone'], pytz.BaseTzInfo):
-        config['timezone'] = pytz.utc
-    return _original_configure(self, config)
-AsyncIOScheduler._configure = patched_configure
 
-from telegram import Update
-from telegram.ext import ApplicationBuilder, CommandHandler, ContextTypes
-
-# --- Конфигурация подключения ---
-# SFTP (источник файлов)
-source_sftp_config = {
-    'host': '37.252.19.163',
-    'username': 'root',
-    'password': 'f#5CYFpC,pXLqf',
-    'directory': '/home/ftpuser/RaveonDDEXLicense_MediaDice/ddex_processor/export'
-}
-
-# FTP (куда копировать файлы)
-dest_ftp_config = {
-    'host': 'imixes.ru',
-    'user': 'amphibians',
-    'passwd': 'Zp4/SItxhHFY',
-    'directory': '/'  # базовая директория на FTP-сервере
-}
 
 # --- Функции мониторинга ---
 # Глобальный набор известных элементов (имен) для мониторинга
